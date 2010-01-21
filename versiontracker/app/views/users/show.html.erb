@@ -1,0 +1,23 @@
+<p>
+  <b>Name:</b>
+  <%=h @user.name %>
+</p>
+
+<p>
+  <b>Password:</b>
+  <%=h @user.password %>
+</p>
+
+<p>
+  <b>Api key:</b>
+  <%=h @user.api_key %>
+</p>
+
+<p>
+  <b>Id:</b>
+  <%=h @user.id %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
