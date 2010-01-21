@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100121022314) do
+ActiveRecord::Schema.define(:version => 20100121064510) do
 
   create_table "components", :force => true do |t|
     t.string   "name"
@@ -18,9 +18,17 @@ ActiveRecord::Schema.define(:version => 20100121022314) do
     t.datetime "updated_at"
   end
 
+  create_table "signature_versions", :force => true do |t|
+    t.integer  "signature_id"
+    t.integer  "version_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "signatures", :force => true do |t|
     t.datetime "date"
     t.float    "score"
+    t.integer  "version_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -29,12 +37,15 @@ ActiveRecord::Schema.define(:version => 20100121022314) do
     t.string   "name"
     t.string   "password"
     t.string   "api_key"
+    t.integer  "signature_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "versions", :force => true do |t|
     t.string   "version_num"
+    t.integer  "component_id"
+    t.integer  "signature_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
