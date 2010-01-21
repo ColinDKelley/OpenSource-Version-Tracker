@@ -3,8 +3,7 @@ class CreateSignatures < ActiveRecord::Migration
     create_table :signatures do |t|
       t.timestamp :date
       t.float :score
-      t.integer :id
-      t.integer :version_id 	
+      t.integer :id 	
       t.timestamps
     end
   end

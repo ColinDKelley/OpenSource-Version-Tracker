@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(:version => 20100121064510) do
   create_table "signatures", :force => true do |t|
     t.datetime "date"
     t.float    "score"
-    t.integer  "version_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -45,7 +44,6 @@ ActiveRecord::Schema.define(:version => 20100121064510) do
   create_table "versions", :force => true do |t|
     t.string   "version_num"
     t.integer  "component_id"
-    t.integer  "signature_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

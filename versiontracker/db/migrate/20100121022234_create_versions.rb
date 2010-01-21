@@ -4,7 +4,6 @@ class CreateVersions < ActiveRecord::Migration
       t.string :version_num
       t.integer :id
       t.integer :component_id
-      t.integer :signature_id	
       t.timestamps
     end
   end
