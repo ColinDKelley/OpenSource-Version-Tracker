@@ -4,7 +4,7 @@ class CreateSignatures < ActiveRecord::Migration
       t.timestamp :date
       t.float :score
       t.integer :id
-
+      t.integer :version_id 	
       t.timestamps
     end
   end

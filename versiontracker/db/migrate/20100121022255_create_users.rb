@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :password
       t.string :api_key
       t.integer :id
-
+      t.integer :signature_id	
       t.timestamps
     end
   end
