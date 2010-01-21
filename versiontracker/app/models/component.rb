@@ -1,3 +1,3 @@
 class Component < ActiveRecord::Base
-has_many: components
+has_many: versions
 end
