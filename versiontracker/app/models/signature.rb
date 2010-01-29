@@ -1,5 +1,7 @@
 class Signature < ActiveRecord::Base
-validates_presence_of :date,:score
-has_many :versions
-belongs_to :user
+  has_many :signature_versions
+  has_many :versions, :through => :signature_versions
+  belongs_to :user
+  
+  validates_presence_of :date, :score
 end
