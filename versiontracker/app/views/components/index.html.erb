@@ -9,7 +9,7 @@
 <% @components.each do |component| %>
   <tr>
     <td><%=h component.name %></td>
-    <td><%=h component.type %></td>
+    <td><%=h component.c_type %></td>
     <td><%= link_to 'Show', component %></td>
     <td><%= link_to 'Edit', edit_component_path(component) %></td>
     <td><%= link_to 'Destroy', component, :confirm => 'Are you sure?', :method => :delete %></td>
