@@ -34,7 +34,7 @@ def password=(pwd)
 	return if pwd.blank?
 	create_new_salt
 	#self.password = User.encrypted_password(self.password, self.salt)
-	write_attribute(:password, Digest::MD5.hexdigest(pwd))
+	write_attribute(:password, Digest::SHA1.hexdigest(pwd))
 end
 
 
