@@ -1,5 +1,4 @@
 class ComponentsController < ApplicationController
-  #before_filter :check_api_key
   # GET /components
   # GET /components.xml
   def index

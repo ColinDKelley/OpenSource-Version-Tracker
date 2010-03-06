@@ -7,7 +7,6 @@ require 'rubygems/local_remote_options'
 require 'rubygems/spec_fetcher'
 require 'rubygems/version_option'
 require 'rubygems/text'
-require 'rest_client'
 require 'net/http'
 	
 
@@ -56,13 +55,30 @@ end
 gems_version =  Gem::RubyGemsVersion
 g = GemList.new("list")
 vhash = g.execute()
+username =''
+api =''
+f = File.new("osvt.conf")
+begin
+    while (line = f.readline)
+        line.chomp
+      
+		if line =~ /(username)=(.+?)*/ 
+			username = $2 
+		end
+		
+		if line =~ /(api_key)=(.+?)*/ 
+			api = $2 
+		end
+    end
+rescue EOFError
+    f.close
+end
 
 for v,k in vhash
 
-Net::HTTP.get_response(URI.parse('http://osvt.heroku.com/components?api_key=api_1024&name=user1024&comp_name='<<v.to_s()<<'&version='<<k.to_s()))
+Net::HTTP.get_response(URI.parse('http://osvt.heroku.com/components?api_key='<<api<<'&name='<<username<<'&comp_name='<<v.to_s()<<'&version='<<k.to_s()))
 
-	#print v,"\t",k,"\n"
 end
 
-#print "ruby_gems","\t",gems_version,"\n"
-Net::HTTP.get_response(URI.parse('http://osvt.heroku.com/components?api_key=api_1024&name=user1024&comp_name='<<"ruby_gems"<<'&version='<<gems_version.to_s()))
+Net::HTTP.get_response(URI.parse('http://osvt.heroku.com/components?api_key='<<api<<'&name='<<username<<'&comp_name='<<"ruby_gems"<<'&version='<<gems_version.to_s()))
+
