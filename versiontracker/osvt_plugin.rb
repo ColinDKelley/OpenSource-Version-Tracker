@@ -7,7 +7,9 @@ require 'rubygems/local_remote_options'
 require 'rubygems/spec_fetcher'
 require 'rubygems/version_option'
 require 'rubygems/text'
-
+require 'rest_client'
+require 'net/http'
+	
 
 
 class GemList < Gem::Command
@@ -56,7 +58,10 @@ g = GemList.new("list")
 vhash = g.execute()
 
 for v,k in vhash
-	print v,"\t",k,"\n"
+
+Net::HTTP.get_response(URI.parse('http://localhost:3000/components?api_key=api_1024&name=user1024&comp_name='<<v.to_s()<<'&version='<<k.to_s()))
+
+	#print v,"\t",k,"\n"
 end
 
 print "ruby_gems","\t",gems_version,"\n"

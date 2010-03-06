@@ -1,9 +1,24 @@
 class ComponentsController < ApplicationController
+  #before_filter :check_api_key
   # GET /components
   # GET /components.xml
   def index
     @components = Component.all
-
+	
+	check_api_key
+	
+	c_n = params[:comp_name]
+	v_num = params[:version]
+	comp = {}
+	ver = {}
+	comp["name"] = c_n
+	comp["c_type"] = "gem"
+	Component.create(comp)
+	last_id = Component.last.id
+	ver["version_num"] = v_num
+	ver["component_id"] = last_id
+	Version.create(ver)
+	
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @components }
@@ -40,8 +55,7 @@ class ComponentsController < ApplicationController
   # POST /components
   # POST /components.xml
   def create
-    @component = Component.new(params[:component])
-
+  @component = Component.new(params[:component])
     respond_to do |format|
       if @component.save
         flash[:notice] = 'Component was successfully created.'
@@ -82,4 +96,15 @@ class ComponentsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+ def check_api_key
+    api_key = params[:api_key] or error = 'Missing API key'
+      api_key && (account = User.find_by_api_key(api_key) or error = 'Bad API key')
+      account && (username = params[:name] or error = 'Missing username')
+      #email && (user = User.find_by_email(name) or error = 'Bad username')
+    unless username
+      render :text => error, :status => :unprocessable_entity
+    end
+  end  
+  
 end
