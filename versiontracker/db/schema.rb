@@ -9,7 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100129204444) do
+ActiveRecord::Schema.define(:version => 20100306100901) do
+
+  create_table "components", :force => true do |t|
+    t.string   "name"
+    t.string   "c_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "signature_versions", :force => true do |t|
     t.integer  "signature_id"
@@ -26,13 +33,14 @@ ActiveRecord::Schema.define(:version => 20100129204444) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "name"
-    t.string   "password"
-    t.string   "api_key"
-    t.integer  "signature_id"
+    t.string   "login",               :null => false
+    t.string   "crypted_password",    :null => false
+    t.string   "password_salt",       :null => false
+    t.string   "persistence_token",   :null => false
+    t.string   "single_access_token", :null => false
+    t.string   "perishable_token",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "salt"
   end
 
   create_table "versions", :force => true do |t|

@@ -1,24 +1,8 @@
-<div class="user-form">
-<% form_for(@user) do |f| %>
-<%= f.error_messages %>
-<fieldset>
-<legend>Enter User Details</legend>
-<div>
-<%= f.label :name %>:
-<%= f.text_field :name, :size => 40 %>
-</div>
 
-<div>
-<%= f.label :user_password, 'Password' %>:
-<%= f.password_field :password, :size => 40 %>
-</div>
-<div>
-<%= f.label :user_password_confirmation, 'Confirm' %>:
-<%= f.password_field :password_confirmation, :size => 40 %>
-</div>
-<div>
-<%= f.submit "Add User" , :class => "submit" %>
-</div>
-</fieldset>
+<h1>Register</h1>
+ 
+<% form_for @user, :url => account_path do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :object => f %>
+  <%= f.submit "Register" %>
 <% end %>
-</div>

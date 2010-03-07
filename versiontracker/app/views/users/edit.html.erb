@@ -1,28 +1,9 @@
-<h1>Editing user</h1>
-
-<% form_for(@user) do |f| %>
+<h1>Update Account</h1>
+<h3>Your API Key: <b><%=h @user.single_access_token  %></b></h3>
+<% form_for @user, :url => account_path do |f| %>
   <%= f.error_messages %>
-
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :password %><br />
-    <%= f.text_field :password %>
-  </p>
-  <p>
-    <%= f.label :api_key %><br />
-    <%= f.text_field :api_key %>
-  </p>
-  <p>
-    <%= f.label :id %><br />
-    <%= f.text_field :id %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
+  <%= render :partial => "form", :object => f %>
+  <%= f.submit "Update" %>
 <% end %>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+

@@ -1,23 +1,20 @@
-<p>
-  <b>Name:</b>
-  <%=h @user.name %>
-</p>
+<h1>Listing components</h1>
 
-<p>
-  <b>Password:</b>
-  <%=h @user.password %>
-</p>
+<table>
+  <tr>
+    <th>Component</th>
+    <th>Version</th>
+  </tr>
+<% @a.each do |version| %>
+  <tr>
+    <td>
+    	<%=h version["component_name"] %>
+    </td>
+    <td>
+    <%=h version["version_num"] %>
+    </td>
+  </tr>
+<% end %>
 
-<p>
-  <b>Api key:</b>
-  <%=h @user.api_key %>
-</p>
+</table>
 
-<p>
-  <b>Id:</b>
-  <%=h @user.id %>
-</p>
-
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
