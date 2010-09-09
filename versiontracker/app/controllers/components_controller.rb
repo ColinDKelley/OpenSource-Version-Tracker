@@ -2,21 +2,18 @@ class ComponentsController < ApplicationController
   # GET /components
   # GET /components.xml
   def index
+    api_key = params[:api_key] or raise 'Missing API key'
+    
+    api_key && (account = User.find_by_single_access_token(api_key) or raise 'Bad API key')
+    
+    #api_key && (account = User.find_by_api_key(api_key) or error = 'Bad API key')
+    #account && (username = params[:name] or error = 'Missing username')
+    #email && (user = User.find_by_email(name) or error = 'Bad username')
+    unless account
+      return render :text => error, :status => :unprocessable_entity
+    end
+    
     @components = Component.all
-    
-    check_api_key
-    
-    c_n = params[:comp_name]
-    v_num = params[:version]
-    comp = {}
-    ver = {}
-    comp["name"] = c_n
-    comp["c_type"] = "gem"
-    Component.create(comp)
-    last_id = Component.last.id
-    ver["version_num"] = v_num
-    ver["component_id"] = last_id
-    Version.create(ver)
     
     respond_to do |format|
       format.html # index.html.erb
@@ -54,6 +51,17 @@ class ComponentsController < ApplicationController
   # POST /components
   # POST /components.xml
   def create
+    c_n = params[:comp_name]
+    v_num = params[:version]
+    comp = {}
+    ver = {}
+    comp["name"] = c_n
+    comp["c_type"] = "gem"
+    Component.create(comp)
+    last_id = Component.last.id
+    ver["version_num"] = v_num
+    ver["component_id"] = last_id
+    Version.create(ver)
     @component = Component.new(params[:component])
     respond_to do |format|
       if @component.save
@@ -93,19 +101,6 @@ class ComponentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(components_url) }
       format.xml { head :ok }
-    end
-  end
-  
-  def check_api_key
-    api_key = params[:api_key] or error = 'Missing API key'
-    
-    api_key && (account = User.find_by_single_access_token(api_key) or error = 'Bad API key')
-    
-    #api_key && (account = User.find_by_api_key(api_key) or error = 'Bad API key')
-    #account && (username = params[:name] or error = 'Missing username')
-    #email && (user = User.find_by_email(name) or error = 'Bad username')
-    unless account
-      render :text => error, :status => :unprocessable_entity
     end
   end
   

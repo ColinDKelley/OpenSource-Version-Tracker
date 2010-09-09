@@ -14,7 +14,7 @@ class SignaturesControllerTest < ActionController::TestCase
 
   test "should create signature" do
     assert_difference('Signature.count') do
-      post :create, :signature => { }
+      post :create, :signature => {:date => "2010-10-01", :score => "5.0"}
     end
 
     assert_redirected_to signature_path(assigns(:signature))

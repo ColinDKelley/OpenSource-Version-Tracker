@@ -1,8 +1,10 @@
 require 'test_helper'
 
 class ComponentsControllerTest < ActionController::TestCase
+  fixtures :all
+  
   test "should get index" do
-    get :index
+    get :index, :api_key => "hello"
     assert_response :success
     assert_not_nil assigns(:components)
   end
@@ -14,7 +16,8 @@ class ComponentsControllerTest < ActionController::TestCase
 
   test "should create component" do
     assert_difference('Component.count') do
-      post :create, :component => { }
+      post :create, :component => {:c_type => "gem", :name => "rails"}
+      assert_equal 'Component was successfully created.', flash[:notice]
     end
 
     assert_redirected_to component_path(assigns(:component))

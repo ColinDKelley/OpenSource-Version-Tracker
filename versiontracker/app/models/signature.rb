@@ -1,3 +1,4 @@
+# Collection of component versions
 class Signature < ActiveRecord::Base
   has_many :signature_versions
   has_many :versions, :through => :signature_versions
